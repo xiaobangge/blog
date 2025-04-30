@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/*设置网站字体*/
+/*原则上你可以设置多个字体，然后在不同的部位使用不同的字体*/
+@font-face{
+    font-family:btfFont;
+    src: url(../font/PingFangGongZiTi-2.woff2) format('woff2')
+}
+body{
+    font-family:"btfFont" !important;
+}
+#app {
+    width: 100%;
+    max-width: inherit;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+img {
+    display: inline-block;
+}
+body {
+    display: block;
+}
+.home > canvas {
+    height: 100% !important;
+}
+.subtitle {
+    -webkit-text-fill-color: transparent;
+  background:linear-gradient(94.75deg, rgb(92 247 60) 0%, rgb(253 227 101) 43.66%, rgb(113 255 0) 64.23%, rgb(38 3 3) 83.76%, rgb(166 172 100) 100%);
+  -webkit-background-clip: text;
+}
+.leftbar {
+    -webkit-text-fill-color: transparent;
+  background:linear-gradient(94.75deg, rgb(239 57 18) 0%, rgb(253 247 101) 43.66%, rgb(255 107 0) 64.23%, rgb(239 240 10) 83.76%, rgb(230 74 163) 100%);
+  -webkit-background-clip: text;
+}
+.music-theme-drawer {
+    padding: 0 !important;
+}
+.md-editor-preview {
+    font-size: inherit !important;
+    text-align: left !important;
+    color: inherit !important;
+}
+.smart-blue-theme {
+    font-family: inherit !important;
+}
+@theme {
+    --theme-color: #425aef;
+    --animate-bounceKey: bounceKey 10s linear infinite;
+    @keyframes bounceKey {
+        0%, 100% {
+            transform: translate(200px, 50px);
+        }
+        50% {
+            transform: translate(-200px, 50px);
+        }
+    }
+
+    --animate-enter: enter 300ms ease-in-out 1 forwards;
+    @keyframes enter {
+        0% {
+            transform: translate(-100%);
+        }
+        100% {
+            transform: translate(0);
+        }
+    }
+
+    --animate-leave: leave 300ms ease-in-out 1 forwards;
+    @keyframes leave {
+        0% {
+            transform: translate(0);
+        }
+        100% {
+            transform: translate(-100%);
+        }
+    }
+
+    --animate-ltr: ltr 400ms ease-in-out 1 forwards;
+    @keyframes ltr {
+        0% {
+            left: -100%;
+        }
+        100% {
+            left: 100%;
+        }
+    }
+    --animate-rtl: rtl 400ms ease-in-out 1 forwards;
+    @keyframes rtl {
+        0% {
+            left: 100%;
+        }
+        100% {
+            left: -100%;
+        }
+    }
+}

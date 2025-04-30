@@ -1,0 +1,29 @@
+
+/*设置网站字体*/
+/*原则上你可以设置多个字体，然后在不同的部位使用不同的字体*/
+@font-face{
+    font-family:btfFont;
+    src: url(http://203.195.213.86/font/PingFangGongZiTi-2.woff2) format('woff2')
+}
+body{
+    font-family:"btfFont" !important
+}
+.banner-subtitle {
+      -webkit-text-fill-color: transparent;
+    background:linear-gradient(94.75deg, rgb(92 247 60) 0%, rgb(253 227 101) 43.66%, rgb(113 255 0) 64.23%, rgb(38 3 3) 83.76%, rgb(166 172 100) 100%);
+    -webkit-background-clip: text;
+}
+#leftbar_overview_author_description {
+      -webkit-text-fill-color: transparent;
+    background:linear-gradient(94.75deg, rgb(60 113 247) 0%, rgb(253 101 101) 43.66%, rgb(22 0 255) 64.23%, rgb(38 3 3) 83.76%, rgb(33 255 248) 100%);
+    -webkit-background-clip: text;
+}
+.leftbar-banner-subtitle {
+    letter-spacing: 11px;
+}
+.navbar-transparent .navbar-brand {
+    font-size: 1.5rem;
+}
+.progress-label span {
+    font-size: 1rem;
+}
