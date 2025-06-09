@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full h-full bg-[#525252] flex flex-col justify-center items-center"
+    class="w-full h-full bg-[#525252] flex flex-col justify-center items-center text-[#fff]"
   >
     <!-- 头部信息 -->
     <div
@@ -8,7 +8,7 @@
     >
       <div>Sean 音乐面板</div>
       <div class="flex items-center justify-center">
-        <!-- <el-tooltip
+        <el-tooltip
           class="box-item"
           effect="dark"
           content="修改颜色主题"
@@ -23,7 +23,7 @@
               class="w-[24px] h-[24px] rounded-[50%] bg-linear-to-r from-[#3b3a4e] to-[#272733] ml-[20px]"
             ></div>
           </div>
-        </el-tooltip> -->
+        </el-tooltip>
       </div>
       <div @click="emit('close')">
         <el-icon size="40" color="#060608"><CircleCloseFilled /></el-icon>
@@ -54,6 +54,7 @@
                 class="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 text-[20px] w-[145px] h-[145px]"
               >
                 <img
+                  loading="lazy"
                   :src="currentMusic.pic"
                   class="w-full h-full rounded-[50%]"
                   alt=""
@@ -134,14 +135,7 @@
             <div v-for="item in playList" :key="item.songid" 
                 class="min-w-[400px] relative h-[220px] shadow-[inset_5px_5px_11px_#212121,inset_-5px_-5px_11px_#838383] rounded-[10px] flex flex-col justify-center items-center mr-[30px] ">
                 <div class="w-full flex items-center px-[20px]">
-                    <img :src="item.pic" class="w-[130px] h-[130px] rounded-[50%] mr-[30px]" :class="{ 'music-poster': playStatus && currentMusic.songid === item.songid }" alt="">
-                    <!-- <el-avatar
-                    size="large"
-                    icon="Cherry"
-                    shape="circle"
-                    :src="item.pic || ''"
-                    :class="{ 'music-poster': playStatus && currentMusic.songid === item.songid }"
-                    ></el-avatar> -->
+                    <img loading="lazy" :src="item.pic" class="w-[130px] h-[130px] rounded-[50%] mr-[30px]" :class="{ 'music-poster': playStatus && currentMusic.songid === item.songid }" alt="">
                     <div class="text-[20px] text-[#b9b9b9]">
                         <div class="text-lg font-bold">{{ item.title }}</div>
                         <div class="text-sm">{{ item.author }}</div>
@@ -149,12 +143,12 @@
                 </div>
               <!-- 播放器 -->
               <div
-                @click = "setCurrentMusic(item); pauseYy()"
+                @click = "checkSong(item)"
                 class="flex justify-center items-center cursor-pointer w-[50px] h-[50px] rounded-[50%] bg-[#525252] 
                         shadow-[9px_9px_19px_#272727,-9px_-9px_19px_#7d7d7d] absolute bottom-[20px] right-[20px]"
               >
                 <bk-svg
-                  :iconName="currentMusic.songid === item.songid ? 'icon-weibiaoti519' : 'icon-bofang'"
+                  :iconName="currentMusic.songid === item.songid && playStatus ? 'icon-weibiaoti519' : 'icon-bofang'"
                   className="w-[24px] h-[24px]"
                   color="#ddd"
                 ></bk-svg>
@@ -173,7 +167,6 @@ const {
   playList,
   currentMusic,
   playStatus,
-  videoMusicRef,
   volume,
   isMute,
   lyricIndex,
@@ -183,9 +176,10 @@ const {
   prevMusic,
   nextMusic,
   setCurrentMusic,
-  setPlayStatus,
   setVolume,
   setIsMute,
+  pauseYy,
+  setPlayStatus
 } = musicStore;
 
 watch(() => lyricIndex.value, (value) => {
@@ -241,21 +235,21 @@ const props = defineProps({
     default: 1,
   },
 });
-//暂停回调函数
-function pauseYy() {
-  setPlayStatus(!playStatus.value);
-  setTimeout(() => {
-    console.log(videoMusicRef);
-    playStatus.value && videoMusicRef?.value?.play();
-    !playStatus.value && videoMusicRef?.value?.pause();
-  }, 300);
-}
 const theme = computed({
   get: () => props.modelValue,
   set: (value: boolean) => {
     emit("update:modelValue", value);
   },
 });
+const checkSong = (item) => {
+    if (currentMusic.value.songid === item.songid) {
+        pauseYy();
+    } else {
+        setCurrentMusic(item);
+        setPlayStatus(false);
+        pauseYy();
+    }
+}
 </script>
 
 <style lang="scss" scoped>

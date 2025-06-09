@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 申请条件 -->
-    <h2 class="text-[24px] flex items-center">
+    <h2 class="text-[16px] md:text-[24px] flex items-center">
       <bk-svg
         iconName="icon-shenqingtiaojian"
         class="w-[20px] h-[20px] mr-[10px]"
@@ -23,7 +23,7 @@
     </div>
     <!-- 申请格式 -->
 
-    <h2 class="text-[24px] flex items-center mt-[30px]">
+    <h2 class="text-[16px] md:text-[24px] flex items-center mt-[30px]">
       <bk-svg iconName="icon-geshishua" class="w-[30px] h-[30px] mr-[10px]" />
       本站友联信息以及申请格式
     </h2>
@@ -83,11 +83,11 @@ const gsList = reactive([
   },
   {
     icon: "icon-xiaohua1",
-    title: "博客地址： https://www.zyicheng.cn",
+    title: "博客地址： https://zyicheng.cn",
   },
   {
     icon: "icon-hua",
-    title: "博客logo： https://www.zyicheng.cn/file/images/logo.png",
+    title: "博客logo： https://www.zyicheng.cn/logo.png",
   },
   {
     icon: "icon-a-yehuahua",

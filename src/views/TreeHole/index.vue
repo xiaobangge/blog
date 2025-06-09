@@ -5,7 +5,7 @@
   >
     <h1 class="text-5xl font-bold tracking-[5px]">树洞</h1>
 
-    <div class="flex justify-center items-center mt-10  relative z-30">
+    <div class="flex justify-center items-center mt-10  relative z-30 scale-75 md:scale-100">
       <div class="input-container relative w-full max-w-[270px]">
         <input
           v-model="content"

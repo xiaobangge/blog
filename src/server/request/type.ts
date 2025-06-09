@@ -5,9 +5,6 @@ import type {
   } from 'axios'
   export interface HYRequestInterceptors {
     // 这里config的类型报错用AxiosRequestConfig和InternalAxiosRequestConfig都不行，还不知道解决方案暂用any
-    // requestInterceptor?: (
-    //   config: InternalAxiosRequestConfig
-    // ) => InternalAxiosRequestConfig
     requestInterceptor?: (
       config: any
     ) => any

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import Layoyts from "@/Layouts/index.vue";
 import axios from "axios";
 import WelcomeLog from "./components/WelcomeLog.vue";
 import initTx from "@/utils/effects";
-import {useUserStore} from '@/store/User'
-const userStore = useUserStore()
-const {
-  initUserInfo
-} = userStore
+import { useUserStore } from "@/store/User";
+import { useConfigStore } from "@/store/Config";
+const configStore = useConfigStore();
+const { isLoading } = toRefs(configStore);
+const userStore = useUserStore();
+const { initUserInfo, saveVisitInfo } = userStore;
 const route = useRoute();
 const dscVideoRef = ref(null);
 const dscDiv = ref(null);
@@ -37,8 +37,10 @@ if (window.location.hostname != "localhost") {
     });
   });
 }
+
 onMounted(() => {
-  initTx()
+  initTx();
+  initUserInfo();
   //首次进入欢迎弹窗
   if (!localStorage.getItem("adublogHY")) {
     axios
@@ -46,8 +48,7 @@ onMounted(() => {
 
       .then((response) => {
         const data = response.data;
-
-        initUserInfo(data)
+        saveVisitInfo(data);
         if (data.success) {
           ElNotification({
             icon: WelcomeLog,
@@ -75,26 +76,29 @@ onMounted(() => {
   async (engine) => {
     await loadSlim(engine);
   };
-});
 
+});
+  const showBg = () => {
+    const path = route.path;
+    const paths = ["/Video"]
+    return !paths.includes(path);
+  }
 </script>
 
 <template>
-  <!-- <div class="fixed z-0 w-full h-[100vh] bg-[url(http://127.0.0.1:7777/file/images/2.gif)] bg-cover left-0 top-0"></div> -->
-  <Layoyts />
-  <router-view></router-view>
-  <div
-    class="fixed left-0 top-0 w-[100vw] h-[100vh] bg-[rgba(0,0,0,0.8)] z-9999 hidden"
-    ref="dscDiv"
-  >
-    <video
-      ref="dscVideoRef"
-      class="w-[30vw] fixed top-[50%] left-[50%] origin-top-left -translate-1/2"
+  <div class="flex flex-col min-h-[100vh]" :class="{'bg-[#e8ecf8]': showBg()}">
+    <router-view></router-view>
+    <bk-loading v-if="isLoading"></bk-loading>
+    <div
+      class="fixed left-0 top-0 w-[100vw] h-[100vh] bg-[rgba(0,0,0,0.8)] z-9999 hidden"
+      ref="dscDiv"
     >
-      <source src="@/assets/video/dscnygsm.mp4" type="video/mp4" />
-    </video>
+      <video
+        ref="dscVideoRef"
+        class="w-[30vw] fixed top-[50%] left-[50%] origin-top-left -translate-1/2"
+      >
+        <source src="@/assets/video/dscnygsm.mp4" type="video/mp4" />
+      </video>
+    </div>
   </div>
 </template>
-
-<style scoped>
-</style>

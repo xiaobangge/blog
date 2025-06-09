@@ -1,13 +1,15 @@
 <template>
   <div class="w-full flex commentListYL relative">
     <div v-show="commentStatus" class="w-full h-full absolute left-0 top-0 z-10 bg-[rgba(255,255,255,0.7)] text-(--theme-color) flex justify-center items-center">评论回复中。。。。。。</div>
-    <div class="relative mr-[30px]">
+    <div class="relative mr-[30px] hidden md:block">
       <img
+        loading="lazy"
         :src="nickInfo.avatar || `https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png`"
         class="w-[40px] h-[40px] rounded-full"
         alt="avatar"
       />
       <img
+        loading="lazy"
         :src="nickInfo.image"
         v-if="nickInfo.image"
         class="w-[65px] h-[65px] rounded-full absolute left-0 top-0 translate-x-[-12px] translate-y-[-15px] max-w-[100px]"
@@ -15,7 +17,7 @@
       />
     </div>
     <div class="flex-1">
-      <div class="flex w-full mb-[20px]">
+      <div class="flex w-full mb-[10px] flex-col md:flex-row">
         <el-input
           v-model="nickInfo.nickname"
           class="flex-1 mr-[30px]"
@@ -25,13 +27,13 @@
         </el-input>
         <el-input
           v-model="nickInfo.email"
-          class="flex-1 mr-[30px]"
+          class="flex-1 mr-[30px] mt-[10px] md:mt-0"
           placeholder="必填"
         >
           <template #prepend>邮箱</template>
           <template #append>@qq.com</template>
         </el-input>
-        <el-input v-model="nickInfo.url" class="flex-1" placeholder="选填">
+        <el-input v-model="nickInfo.url" class="flex-1 mt-[10px] md:mt-0" placeholder="选填">
           <template #prepend>网址</template>
         </el-input>
       </div>
@@ -47,8 +49,9 @@
           @blur="dm_bg = dm5"
         />
         <img
+          loading="lazy"
           :src="dm_bg"
-          class="absolute bottom-[25px] right-0 w-[100px]"
+          class="absolute bottom-[25px] right-0 w-0 md:w-[100px]"
           alt="bg"
         />
         <div
@@ -80,7 +83,7 @@
             <bk-svg iconName="icon-zu74" class="w-[30px] h-[30px] mr-[10px]" @click="isShowExpression = !isShowExpression" />
             <transition name="fade">
               <div
-                class="w-[400px] flex flex-wrap justify-center bg-white shadow-[0_0_10px_#ddd] absolute top-[40px] left-[0] z-10"
+                class="w-[70vw] md:w-[400px] flex flex-wrap justify-center bg-white shadow-[0_0_10px_#ddd] absolute top-[40px] left-[0] z-10"
                 v-if="isShowExpression"
               >
                 <bk-tab
@@ -94,10 +97,10 @@
                       tabs[activeTab].type
                     ] || []"
                     :key="index"
-                    class="px-[20px] py-[10px] flex flex-col items-center justify-center"
-                    :class="{'w-[25%]': tabs[activeTab].type === 'hl', 'w-[20%]': tabs[activeTab].type === 'tl'}"
+                    class="px-[10px] py-[10px] flex flex-col items-center justify-center w-[20%]"
                   >
                     <img
+                      loading="lazy"
                       alt="avatar"
                       :src="item"
                       class="w-full h-full rounded-full mb-[10px] cursor-pointer"
@@ -108,7 +111,7 @@
               </div>
             </transition>
           </div>
-          <div class="relative">
+          <div class="relative hidden md:block">
             <bk-button @click="isShowGj = !isShowGj" class="w-[80px] h-[25px] border-[4px] rounded-[30px]" title="挂件"></bk-button>
             <transition name="fade">
               <div
@@ -130,6 +133,7 @@
                     :class="{'w-[25%]': tabs[activeTab].type === 'hl', 'w-[20%]': tabs[activeTab].type === 'tl'}"
                   >
                     <img
+                      loading="lazy"
                       alt="avatar"
                       :src="item"
                       class="w-full h-full rounded-full mb-[10px] cursor-pointer"
@@ -185,7 +189,15 @@ const props = defineProps({
   commentStatus: {
     type: Boolean,
     default: false, // 是否为评论状态，true为回复状态，false为评论状态
-  }
+  },
+  stopFetch: {
+    type: Boolean,
+    default: false, // 是否为评论状态，true为回复状态，false为评论状态
+  },
+  uid: {
+    type: String,
+    default: '', // 当评论文章时，需要传uid
+  },
 });
 const dm_bg = ref(dm5 as any);
 const isShowExpression = ref(false);
@@ -218,14 +230,16 @@ const initAvatar = async () => {
   expressionInfo.value.tl = res.data.tl;
 };
 const submitComment = () => {
+  const info = JSON.parse(JSON.stringify(nickInfo.value));
     const from = {
-        nickname: nickInfo.value.nickname,
-        email: nickInfo.value.email,
-        url: nickInfo.value.url,
-        avatar: nickInfo.value.avatar,
-        image: nickInfo.value.image,
-        target_id: props.id,
+        nickname: info.nickname,
+        email: info.email + '@qq.com',
+        url: info.url,
+        avatar: info.avatar,
+        image: info.image,
+        target_id: props.id === props.uid ? '' : props.id,
         pid: props.pid,
+        uid: props.uid,
     }
     const data = {
         type: props.type,
@@ -259,7 +273,7 @@ onMounted(() => {
 });
 
 const checkExpression = (expression: string) => {
-  content.value = `${content.value}<img src="${expression}" alt="expression" class="w-[35px]">`;
+  content.value = `${content.value}<img loading="lazy" src="${expression}" alt="expression" class="w-[35px]">`;
 };
 watch(
   () => nickInfo.value.email,

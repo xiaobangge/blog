@@ -6,10 +6,22 @@ interface DataType {
   success: boolean;
 }
 // 获取用户信息
-export async function getUserInfoApi(data: any) {
+export async function getUserInfoApi() {
   return await hyRequest
    .request<DataType>({
       url: "/user/info",
+      method: "POST",
+      showLoading: false,
+    })
+   .then((res: { data: any }) => {
+      return res.data;
+    });
+}
+// 储存访客信息
+export async function saveVisitor(data: any) {
+  return await hyRequest
+   .request<DataType>({
+      url: "/user/visitor",
       method: "POST",
       data,
       showLoading: false,
@@ -48,6 +60,33 @@ export async function getExpressionApi() {
   return await hyRequest
    .request<DataType>({
       url: `/expression`,
+      method: "GET",
+      showLoading: false,
+    })
+   .then((res: { data: any }) => {
+      return res.data;
+    });
+}
+
+
+// 获取访客统计数据
+export async function getVisitorCountApi() {
+  return await hyRequest
+   .request<DataType>({
+      url: `/visitor/count`,
+      method: "GET",
+      showLoading: false,
+    })
+   .then((res: { data: any }) => {
+      return res.data;
+    });
+}
+
+// 获取访客地理位置
+export async function getVisitorAddressApi() {
+  return await hyRequest
+   .request<DataType>({
+      url: `/visitor/address`,
       method: "GET",
       showLoading: false,
     })

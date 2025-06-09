@@ -9,7 +9,7 @@
             <el-carousel-item v-for="item in linkList" :key="item.id">
                 <div class="flex items-center justify-center h-full  bg-[url('@/assets/images/bg/bg2.png')] bg-cover bg-center cursor-pointer hover:scale-105 transition-transform duration-300" @click="toLink(item.url)">
                     <img :src="item.avatar" class="w-18 h-18" alt="avatar" />
-                    <div class="ml-4">
+                    <div class="ml-4 max-w-[60%]">
                         <h2 class=" font-bold text-2xl">{{item.name}}</h2>
                         <p class=" text-sm">{{item.remark}}</p>
                     </div>
@@ -29,6 +29,7 @@
    const res = await getLinkListApi({
     page: 1,
     pageSize: 10,
+    type: 1,
    });
    linkList.value = res.data?.list || [];
    console.log(linkList.value);

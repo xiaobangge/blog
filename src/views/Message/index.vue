@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[70%] mx-auto h-full flex flex-col pt-[120px] justify-center text-black">
+  <div class="w-[90%] sm:w-[80%] md:w-[70%] mx-auto h-full flex flex-col pt-[120px] justify-center text-black">
     <!-- 标题 -->
     <div class="text-center bg-white pt-[20px]">
       <div class="text-[24px] font-bold">留言贴纸</div>

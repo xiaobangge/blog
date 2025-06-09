@@ -9,7 +9,12 @@
                 <img :src="item.avatar" class="h-18" alt="avatar" />
                 <div class="ml-4">
                     <h2 class=" font-bold text-[18px]">{{item.name}}</h2>
-                    <p class=" text-sm text-[#666]">{{item.remark}}</p>
+                    <p class=" text-sm text-[#666] overflow-hidden text-ellipsis"
+                      style="
+                        display: -webkit-box; /* 将容器以弹性盒子形式布局 */
+                        -webkit-line-clamp: 2; /* 限制文本显示为两行 */
+                        -webkit-box-orient: vertical; /* 将弹性盒子的主轴方向设置为垂直方向 */
+                      ">{{item.remark}}</p>
                 </div>
             </div>
         </div>

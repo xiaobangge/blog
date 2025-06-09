@@ -26,6 +26,7 @@
     lyricList: [],
     // 当前歌词索引
     lyricIndex: 0,
+    stop: false,
    }),
    actions: {
     initRefs(el: any) {
@@ -35,6 +36,8 @@
     setCurrentMusic(music: {}) {
       this.currentMusic = music
       this.lyricList = formatLyric(this.currentMusic.lrc || "");
+      // this.currentMusic.url = '/music' + this.currentMusic.url.split("com")[1];
+      // console.log(this.currentMusic.url)
     },
     // 设置播放列表
     setPlayList(list: never[]) {
@@ -62,9 +65,20 @@
     setLoopMode(mode: string) {
       this.loopMode = mode
     },
+    // 储存播放进度
+    saveProgress(currentTime: number) {
+      this.currentTime = currentTime
+    },
     // 设置播放进度
     setProgress(currentTime: number) {
       this.currentTime = currentTime
+      this.videoMusicRef.currentTime = currentTime
+      this.stop = false
+      this.setPlayStatus(false)
+      this.pauseYy()
+    },
+    setStop() {
+      this.stop = true
     },
     // 上一首
     prevMusic(next: () => void) {
@@ -103,7 +117,8 @@
     },
     audioTime(e: { target: { currentTime: number } }, next: () => void) {
         // 当前播放的时间
-        this.currentTime = e.target.currentTime;
+        if (this.stop) return;
+        this.saveProgress(e.target.currentTime)
         for (let i = 0; i < this.lyricList.length; i++) {
           // 如果播放时间大于当前歌曲条目的时间
           if (this.currentTime > this.lyricList[i].time) {
@@ -112,6 +127,13 @@
             next?.();
           }
         }
+      },
+      pauseYy() {
+        this.setPlayStatus(!this.playStatus);
+        setTimeout(() => {
+          this.playStatus && this.videoMusicRef?.play();
+          !this.playStatus && this.videoMusicRef?.pause();
+        }, 300);
       }
    }
  })

@@ -142,7 +142,7 @@
 </template>
 
 <script setup lang="ts">
-// import { getMusicList } from "@/api/music";
+import { getMusicList } from "@/api/music";
 import { MUSIC } from "@/types/Music";
 // import MusicTheme from "./MusicTheme.vue"
 import Theme1 from "./theme_music/theme1.vue";
@@ -176,6 +176,9 @@ const initMusicList = async () => {
   try {
     // const data = await getMusicList();
     // console.log(data)
+    // getMusicList('52144').then((data) => {
+    //   console.log(data)
+    // })
     const response = await fetch("/file/json/music.json");
     if (!response.ok) {
       throw new Error("Network response was not ok " + response.statusText);

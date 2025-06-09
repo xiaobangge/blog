@@ -57,3 +57,27 @@ export async function getArticleOne(id: any) {
       return res.data;
     });
 }
+// 按年份获取文章列表
+export async function getArticleByYear(year: any) {
+  return await hyRequest
+   .request<DataType>({
+      url: `/article/list/${year}`,
+      method: "GET",
+      showLoading: false,
+    })
+   .then((res: { data: any }) => {
+      return res.data;
+    });
+}
+// 按年份获取文章统计
+export async function getArticleTotalByYear() {
+  return await hyRequest
+   .request<DataType>({
+      url: `/article/year`,
+      method: "GET",
+      showLoading: false,
+    })
+   .then((res: { data: any }) => {
+      return res.data;
+    });
+}

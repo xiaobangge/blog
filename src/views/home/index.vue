@@ -1,7 +1,8 @@
 <template>
-  <div class="w-full bg-[#aca6de] pb-[50px] home  bg-[url('@/assets/images/bg/bg7.png')] bg-cover bg-center" ref="homeRef">
+  <div class="w-full bg-[#aca6de] pb-[50px] home" ref="homeRef">
+    <bk-xk/>
     <!-- 博客动画 -->
-    <div class="flex justify-center items-center h-[100vh]">
+    <div class="flex justify-center items-center h-[100vh] relative">
       <bk-itext></bk-itext>
     </div>
     <!-- 首页内容 -->
@@ -33,7 +34,7 @@
         </el-anchor-link>
       </el-anchor>
       <!-- 左侧内容 -->
-      <div id="about" class="w-[70%] mx-auto mt-[50px] text-[#333]">
+      <div id="about" class="w-[90%] mx-auto mt-[50px] text-[#333] lg:w-[70%]">
         <!-- 动态 -->
         <div class="flex flex-col items-center h-[50px] overflow-hidden rounded-xl hover:border-2 hover:border-[#425aef]"
           @mouseenter="isMoveIng = true" @mouseleave="isMoveIng = false; createMomentsInterval()">
@@ -52,12 +53,12 @@
                 ></bk-svg>
             </div>
             <!-- 手动在尾部补充第一个动态 -->
-            <div v-if="momentsList.length > 1" class="flex w-full text-[#333] bg-white px-[20px] py-[10px] justify-between items-center h-[50px] overflow-hidden">
+            <div v-if="momentsList?.length > 1" class="flex w-full text-[#333] bg-white px-[20px] py-[10px] justify-between items-center h-[50px] overflow-hidden">
                 <bk-svg
                   iconName="icon-pengyouquan"
                   className="w-[30px] h-[30px] mr-[10px]"
                 ></bk-svg>
-                <div @click="toRoute('/Moments')" class="flex-1 text-[18px] hover:text-[#425aef] text-center text-nowrap overflow-hidden" v-html="momentsList[0].content"></div>
+                <div @click="toRoute('/Moments')" class="flex-1 text-[18px] hover:text-[#425aef] text-center text-nowrap overflow-hidden" v-html="momentsList[0]?.content"></div>
                 <bk-svg
                   iconName="icon-tiaozhuan"
                   className="w-[20px] h-[20px] rotate-x-180 mr-[10px]"
@@ -78,36 +79,35 @@
           </div>
         </div>
         <!-- 关于我 -->
-         <div class="mt-[30px] w-full flex">
+         <div class="mt-[30px] w-full lg:flex hidden sm:block">
             <!-- 关于 -->
-             <div class="w-[50%] mr-[30px] relative overflow-hidden" @click="toRoute('/About')">
+             <div class="lg:w-[50%] lg:mr-[30px] relative overflow-hidden">
               <component :is="AboutView"></component>
              </div>
-             <div class="w-[50%]  rounded-2xl overflow-hidden">
-              <!-- <lz-canvas></lz-canvas> -->
+             <div class="lg:w-[50%] mt-[30px] lg:mt-0 rounded-2xl overflow-hidden">
                <link-view></link-view>
              </div>
          </div>
          <!-- 文章信息 -->
-          <div class="mt-[30px] w-full flex justify-between">
+          <div class="mt-[30px] w-full lg:flex justify-between">
             <div class="flex-1">
               <ArticleView></ArticleView>
             </div>
-            <div class="w-[250px] ml-[30px]">
+            <div class="w-[250px] ml-[30px] hidden lg:block">
               <!-- 吸顶效果 -->
               <el-affix :offset="120">
-                <div class="w-full bg text-white p-[20px] rounded-2xl"> <TimeView/></div>
-                
-                <!-- 左侧菜单栏 -->
-                <div class="w-full mt-[30px] ">
-                  <div class="bg w-full rounded-tr-2xl rounded-tl-2xl text-center text-white p-[1.5rem]">
-                    <div class="text-[30px] font-bold mb-[20px]">叶影凌枫</div>
-                    <div class="text-[18px] tracking-[8px]">水利万物而不争,而万物莫能与之争</div>
+                  <div class="w-full bg text-white p-[20px] rounded-2xl"> <TimeView/></div>
+                  
+                  <!-- 左侧菜单栏 -->
+                  <div class="w-full mt-[30px] ">
+                    <div class="bg w-full rounded-tr-2xl rounded-tl-2xl text-center text-white p-[1.5rem]">
+                      <div class="text-[30px] font-bold mb-[20px]">叶影凌枫</div>
+                      <div class="text-[18px] tracking-[8px]">水利万物而不争,而万物莫能与之争</div>
+                    </div>
+                    <div class=" w-full text-center mb-[20px]">
+                      <bk-button @click="toRoute('/About')" class="w-full h-full  rounded-br-2xl rounded-bl-2xl" title="关于我"></bk-button>
+                    </div>
                   </div>
-                  <div class=" w-full text-center mb-[20px]">
-                    <bk-button @click="toRoute('/About')" class="w-full h-full  rounded-br-2xl rounded-bl-2xl" title="关于我"></bk-button>
-                  </div>
-                </div>
               </el-affix>
             </div>
           </div>
@@ -120,6 +120,8 @@
 import AboutView from './components/about.vue'
 import ArticleView from './components/article.vue';
 import LinkView from './components/links.vue';
+// import BkSky from './BkSky.vue'
+import BkXk from './BKXk.vue'
 const isMove = ref(false);
 // const homeRef = ref(null);
 // import { vanta } from "@/utils/vanta";

@@ -1,12 +1,12 @@
 // 存储用户信息 - userinfo
 import { defineStore } from 'pinia'
-import {getUserInfoApi} from '@/api/Main'
+import {getUserInfoApi, saveVisitor} from '@/api/Main'
 const userinfo: any = localStorage.getItem('userInfo')
 const nickInfo: any = localStorage.getItem('nickInfo')
 export const useUserStore = defineStore('user', {
   state: () => ({
     userInfo: userinfo? JSON.parse(userinfo) : {},
-    writePath: ['/home', '/TreeHole'], //白名单 - 控制头部菜单背景显示
+    writePath: ['/home', '/TreeHole', '/Archives', '/Find'], //白名单 - 控制头部菜单背景显示
     nickInfo: nickInfo? JSON.parse(nickInfo) : {},
   }),
   getters: {
@@ -30,9 +30,17 @@ export const useUserStore = defineStore('user', {
       this.nickInfo = nickInfo
       localStorage.setItem('nickInfo', JSON.stringify(nickInfo))
     },
+    // 储存访客信息
+    async saveVisitInfo(data: any) {
+        const res = await saveVisitor(data)
+        if (res.code === 200) {
+            console.log(res.data)
+            this.setUserInfo(res.data)
+        }
+    },
     // 获取用户信息
-    async initUserInfo(data: any) {
-        const res = await getUserInfoApi(data)
+    async initUserInfo() {
+        const res = await getUserInfoApi()
         if (res.code === 200) {
             console.log(res.data)
             this.setUserInfo(res.data)

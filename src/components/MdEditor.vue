@@ -94,7 +94,14 @@ const props = defineProps({
   },
 });
 const content = computed({
-  get: () => props.modelValue,
+  get: () => {
+    if (!props.modelValue) return props.modelValue;
+    const str = props.modelValue.replace(/<script/g, "&lt;script");
+    const str1 = str.replace(/<\/script>/g, "&lt;/script&gt;");
+    const str2 = str1.replace(/<style/g, "&lt;style");
+    const str3 = str2.replace(/<\/style>/g, "&lt;/style&gt;");
+    return str3;
+  },
   set: (val: string) => {
     emit("update:modelValue", val);
   },

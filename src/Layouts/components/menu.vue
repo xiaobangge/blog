@@ -1,13 +1,14 @@
 <template>
   <div class="flex justify-center w-full">
-    <ul class="flex justify-around items-center w-full" :class="{ 'text-black': isWritePath(), 'text-white': isWritePath(true) }">
+    <ul v-if="!size" class="flex justify-around items-center w-full" :class="{ 'text-black': isWritePath(), 'text-white': isWritePath(true) }">
       <li
-        class="font-bold text-lg px-6 py-[4px] h-lg inline-block hover:bg-[#425aef] hover:text-white cursor-pointer rounded-[40px]"
+        class="font-bold text-nowrap text-lg px-6 py-[4px] h-lg inline-block hover:bg-[#425aef] hover:text-white cursor-pointer rounded-[40px]"
+        @click="toRoute('/Archives')"
       >
         归档
       </li>
       <li
-        class="font-bold relative text-lg px-6 py-[4px] h-lg inline-block hover:bg-[#425aef] hover:text-white cursor-pointer rounded-[40px]"
+        class="font-bold text-nowrap relative text-lg px-6 py-[4px] h-lg inline-block hover:bg-[#425aef] hover:text-white cursor-pointer rounded-[40px]"
         @mouseenter="isFiniteHome = true"
         @mouseleave="isFiniteHome = false"
       >
@@ -36,11 +37,34 @@
         </transition>
       </li>
       <li
-        class="font-bold text-lg px-6 py-[4px] h-lg inline-block hover:bg-[#425aef] hover:text-white cursor-pointer rounded-[40px]"
+        class="font-bold text-nowrap text-lg px-6 py-[4px] h-lg inline-block hover:bg-[#425aef] hover:text-white cursor-pointer rounded-[40px]"
+        @click="toRoute('/Find')"
       >
         发现
       </li>
     </ul>
+    <div class="w-full text-[#333]" v-else>
+      <div class="flex justify-center items-center p-[8px] rounded-[6px] bg-white border-[1px] border-[#efefef]" @click="toRoute('/')">
+        <bk-svg iconName="icon-shouye" class="mr-[10px] h-[14px] w-[14px]"/>
+        首页
+      </div>
+      <div class="flex mt-[20px] justify-center items-center p-[8px] rounded-[6px] bg-white border-[1px] border-[#efefef]" @click="toRoute('/Archives')">
+        <bk-svg iconName="icon-guidang" class="mr-[10px] h-[14px] w-[14px]"/>
+        归档
+      </div>
+      <div class="mt-[30px]">
+        <span>逛逛</span>
+        <ul class="flex flex-wrap justify-between items-center">
+          <li class="flex w-[48%] mt-[10px] justify-center items-center p-[8px] rounded-[6px] bg-white border-[1px] border-[#efefef]" 
+              :class="{'w-full': index === 0}"
+              @click="toRoute(menu.path)"
+              v-for="(menu, index) in menus" :key="menu.name">
+              <bk-svg :iconName="menu.icon" class="mr-[5px] h-[14px] w-[14px]"/>
+              <div class="ml-2 text-nowrap">{{ menu.name }}</div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -48,6 +72,13 @@
 const isFiniteHome = ref(false);
 import {useUserStore} from '@/store/User'
 const {isWritePath} = useUserStore()
+const emit = defineEmits(['close'])
+defineProps({
+  size: {
+    type: String,
+    default: ''
+  }
+})
 const menus = reactive([
   {
     name: "闲言碎语",
@@ -77,7 +108,8 @@ const menus = reactive([
 ]);
 const router = useRouter();
 const toRoute = (path: string) => {
-    router.push(path);
+  emit('close')
+  router.push(path);
 };
 </script>
 

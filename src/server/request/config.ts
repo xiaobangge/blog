@@ -1,4 +1,4 @@
-let BASE_URL = '/api'
+const BASE_URL = '/api'
 const TIME_OUT = 10000
  
 // if (process.env.NODE_ENV === 'development') {

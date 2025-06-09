@@ -1,5 +1,5 @@
 <template>
-    <div class="w-[70%] mx-auto h-full flex flex-col pt-[120px] justify-center text-black">
+    <div class="w-[90%] sm:w-[80%] md:w-[70%] mx-auto h-full flex flex-col pt-[120px] justify-center text-black">
       <div class="w-full p-[20px] rounded-[10px] bg-white min-h-[80vh]">
           <bk-tab class="mb-[30px]" :data="tabs" v-model="activeTab" />
           <component :is="Components[activeTab]"></component>

@@ -7,8 +7,11 @@ export const isMoveIng = ref(false);
 const MomentsIndex = ref(1);
 // 获取动态列表
 export const queryMoments = async () => {
-  const res = await getMomentsList({});
-  momentsList.value = res.data;
+  const res = await getMomentsList({
+    currentPage: 1,
+    pageSize: 10,
+  });
+  momentsList.value = res.data?.list || [];
   createMomentsInterval();
 };
 const setTimeer = ref(null as any)

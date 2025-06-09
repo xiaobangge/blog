@@ -2,6 +2,7 @@
   <div class="w-full h-full cursor-pointer">
     <div
       class="rounded-2xl bg-white p-[40px] relative h-[250px] overflow-hidden"
+      @click="toRoute('/About')"
       @mouseover="show_text = true"
       @mouseout="show_text = false"
     >
@@ -60,7 +61,7 @@
         @mouseover="nowText = item.title"
         @mouseout="nowText = ''"
       >
-        <div class="text-[20px] font-bold">
+        <div class="text-[18px] font-bold">
           {{ item.title }}
           <div class="w-[30px] h-[2px] bg-white"></div>
         </div>
@@ -102,6 +103,7 @@ const { userInfo } = toRefs(useUserStore());
 const bg_imgs = reactive([java, maven, Vue, redis, spring, mysql]);
 const show_text = ref(false);
 const nowText = ref("");
+const router = useRouter();
 const statistics = ref({
   articleCount: 0,
   visitorCount: 0,
@@ -117,6 +119,9 @@ const run_days = computed(() => {
     console.log(date, start_date, userInfo);
     return Math.ceil((date - start_date) / (24 * 3600 * 1000));
 })
+const toRoute = (path: string) => {
+    router.push(path);
+};
 const list = computed(() => {
   return [
     {

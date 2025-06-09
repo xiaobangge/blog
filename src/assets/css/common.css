@@ -47,8 +47,94 @@ body {
 .smart-blue-theme {
     font-family: inherit !important;
 }
+
+@keyframes colorChange {
+    0%,
+    100% {
+      opacity: 0;
+    }
+  
+    50% {
+      opacity: 0.9;
+    }
+  }
+@keyframes about-self {
+    0% {
+        transform: rotate(0);
+        filter: hue-rotate(360deg);
+    }
+    100% {
+        transform: rotate(360deg);
+        filter: hue-rotate(0deg);
+    }
+}
+@keyframes about-text {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        transform: translate(-50%, -60%);
+    }
+}
+@keyframes about-ws {
+    0% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(5deg);
+    }
+}
+@keyframes about-24h {
+    0% {
+        transform: rotate(-15deg);
+    }
+    100% {
+        transform: rotate(15deg);
+    }
+}
+@keyframes about-text1 {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: -200%;
+    }
+}
+@keyframes about-fk {
+    0% {
+        transform: translateZ(-500px) rotate(0deg);
+    }
+    100% {
+        transform: translateZ(500px) rotate(0);
+    }
+}
+
+@keyframes about-fade {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes bgAnimation {
+    0%,100%{
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
 @theme {
     --theme-color: #425aef;
+    --hover-theme-color: rgba(66, 90, 239, 0.5);
     --animate-bounceKey: bounceKey 10s linear infinite;
     @keyframes bounceKey {
         0%, 100% {
@@ -98,3 +184,16 @@ body {
         }
     }
 }
+
+:root {
+    --scrollbar-width: 6px;
+    --scrollbar-bg: #f1f1f1;
+    --scrollbar-thumb-bg: var(--hover-theme-color);
+    --scrollbar-thumb-hover-bg: var(--theme-color);
+}
+ 
+/* 应用到滚动条 */
+::-webkit-scrollbar { width: var(--scrollbar-width); }
+::-webkit-scrollbar-track { background: var(--scrollbar-bg); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb-bg); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover-bg); }
