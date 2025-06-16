@@ -8,6 +8,11 @@ const routes: Array<any> = [
     component: () => import("../views/find/Video/copy.vue")
   },
   {
+    path: "/Statistics",
+    name: "Statistics",
+    component: () => import("../views/statistics/index.vue")
+  },
+  {
     path: "/",
     name: "/",
     redirect: "/home",

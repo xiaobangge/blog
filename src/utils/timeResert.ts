@@ -3,6 +3,9 @@ import moment from "moment";
 const timeReset = (time: string) => {
   const now = moment();
   const resetTime = moment(time);
+  //   秒
+  const seconds = now.diff(resetTime, "seconds");
+  if (seconds < 60) return seconds + "s前";
   //   分钟
   const minutes = now.diff(resetTime, "minutes");
   if (minutes < 60) return minutes + "分钟前";

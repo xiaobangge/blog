@@ -2,10 +2,11 @@
 import { defineStore } from 'pinia'
 import {getUserInfoApi, saveVisitor} from '@/api/Main'
 const userinfo: any = localStorage.getItem('userInfo')
+console.log(userinfo, 'userinfo')
 const nickInfo: any = localStorage.getItem('nickInfo')
 export const useUserStore = defineStore('user', {
   state: () => ({
-    userInfo: userinfo? JSON.parse(userinfo) : {},
+    userInfo: userinfo && userinfo !== 'undefined' ? JSON.parse(userinfo) : {},
     writePath: ['/home', '/TreeHole', '/Archives', '/Find'], //白名单 - 控制头部菜单背景显示
     nickInfo: nickInfo? JSON.parse(nickInfo) : {},
   }),
@@ -32,11 +33,7 @@ export const useUserStore = defineStore('user', {
     },
     // 储存访客信息
     async saveVisitInfo(data: any) {
-        const res = await saveVisitor(data)
-        if (res.code === 200) {
-            console.log(res.data)
-            this.setUserInfo(res.data)
-        }
+         await saveVisitor(data)
     },
     // 获取用户信息
     async initUserInfo() {

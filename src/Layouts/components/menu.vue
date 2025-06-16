@@ -42,6 +42,12 @@
       >
         发现
       </li>
+      <li
+        class="font-bold text-nowrap text-lg px-6 py-[4px] h-lg inline-block hover:bg-[#425aef] hover:text-white cursor-pointer rounded-[40px]"
+        @click="toRoute('/Statistics')"
+      >
+        大屏可视化
+      </li>
     </ul>
     <div class="w-full text-[#333]" v-else>
       <div class="flex justify-center items-center p-[8px] rounded-[6px] bg-white border-[1px] border-[#efefef]" @click="toRoute('/')">

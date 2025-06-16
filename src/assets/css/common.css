@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./vData.scss";
 
 /*设置网站字体*/
 /*原则上你可以设置多个字体，然后在不同的部位使用不同的字体*/
@@ -183,6 +184,26 @@ body {
             left: -100%;
         }
     }
+    --animate-show1: show1 0.2s linear forwards;
+    --animate-show2: show2 0.2s linear forwards 0.2s;
+    --animate-show3: show3 0.2s linear forwards 0.4s;
+    --animate-show4: show4 0.2s linear forwards 0.6s;
+    --animate-dataTitle: dataTitle 0.5s linear forwards 0.8s;
+    --animate-rotate_main: rotate_main 5s linear infinite;
+    --animate-move_right: move_right 1s linear forwards 7s;
+    --animate-move_left: move_left 1s linear forwards 7s;
+    --animate-come1: come1 0.5s linear forwards 3.4s;
+    --animate-come2: come2 0.5s linear forwards 3.4s;
+    --animate-come3: come3 0.5s linear forwards 3.4s;
+    --animate-come4: come4 0.5s linear forwards 3.4s;
+    --animate-inner1: inner1 0.3s linear forwards 3.9s;
+    --animate-inner2: inner2 0.3s linear forwards 3.9s;
+    --animate-arrow1: arrow1 1.5s linear infinite 4s;
+    --animate-arrow2: arrow2 1.5s linear infinite 4s;
+    --animate-meter: meter 3s linear forwards 4.1s;
+    --animate-sale: sale 1s linear forwards 8s;
+    --animate-di2: di2 1s linear forwards 7s;
+    --animate-show5: show5 1s linear forwards 8.5s;
 }
 
 :root {

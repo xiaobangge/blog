@@ -94,3 +94,29 @@ export async function getVisitorAddressApi() {
       return res.data;
     });
 }
+
+// 获取访客地理位置
+export async function getLogApi() {
+  return await hyRequest
+   .request<DataType>({
+      url: `/user/log`,
+      method: "POST",
+      showLoading: false,
+    })
+   .then((res: { data: any }) => {
+      return res.data;
+    });
+}
+
+// 获取访客地理位置
+export async function getVisitorAreaApi() {
+  return await hyRequest
+   .request<DataType>({
+      url: `/visitor/area`,
+      method: "POST",
+      showLoading: false,
+    })
+   .then((res: { data: any }) => {
+      return res.data;
+    });
+}

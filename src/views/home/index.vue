@@ -36,47 +36,24 @@
       <!-- 左侧内容 -->
       <div id="about" class="w-[90%] mx-auto mt-[50px] text-[#333] lg:w-[70%]">
         <!-- 动态 -->
-        <div class="flex flex-col items-center h-[50px] overflow-hidden rounded-xl hover:border-2 hover:border-[#425aef]"
-          @mouseenter="isMoveIng = true" @mouseleave="isMoveIng = false; createMomentsInterval()">
-          <div class="w-full" :class="{'transition-all  duration-500 ease-in-out': isNeedTran}" ref="MomentsRef">
-            <div v-for="(item, index) in momentsList" :key="index" class="flex w-full text-[#333] bg-white px-[20px] py-[10px] justify-between items-center h-[50px] overflow-hidden cursor-pointer">
+        <div class="flex flex-col items-center h-[50px] overflow-hidden rounded-xl hover:border-2 hover:border-[#425aef]">
+          <LoopScroll class="w-full" :dataSource="momentsList" :waitTime="1000" itemKey="id">
+            <template #default="{ item }">
+              <div  class="flex w-full text-[#333] bg-white px-[20px] py-[10px] justify-between items-center h-[50px] overflow-hidden cursor-pointer">
                 <bk-svg
-                  iconName="icon-pengyouquan"
-                  className="w-[30px] h-[30px] mr-[10px]"
-                ></bk-svg>
-                <div @click="toRoute('/Moments')" class="flex-1 text-center text-nowrap overflow-hidden h-[30px] hover:text-[#425aef]" v-html="item.content"></div>
-                <bk-svg
-                  iconName="icon-tiaozhuan"
-                  className="w-[20px] h-[20px] rotate-x-180 mr-[10px]"
-                  color="#333"
-                   @click="toRoute('/Moments')"
-                ></bk-svg>
-            </div>
-            <!-- 手动在尾部补充第一个动态 -->
-            <div v-if="momentsList?.length > 1" class="flex w-full text-[#333] bg-white px-[20px] py-[10px] justify-between items-center h-[50px] overflow-hidden">
-                <bk-svg
-                  iconName="icon-pengyouquan"
-                  className="w-[30px] h-[30px] mr-[10px]"
-                ></bk-svg>
-                <div @click="toRoute('/Moments')" class="flex-1 text-[18px] hover:text-[#425aef] text-center text-nowrap overflow-hidden" v-html="momentsList[0]?.content"></div>
-                <bk-svg
-                  iconName="icon-tiaozhuan"
-                  className="w-[20px] h-[20px] rotate-x-180 mr-[10px]"
-                  :color="isMoveTz ? '#425aef' : '#333'"
-                   @click="toRoute('/Moments')"
-                  @mouseenter="
-                    () => {
-                      isMoveTz = true;
-                    }
-                  "
-                  @mouseleave="
-                    () => {
-                      isMoveTz = false;
-                    }
-                  "
-                ></bk-svg>
-            </div>
-          </div>
+                    iconName="icon-pengyouquan"
+                    className="w-[30px] h-[30px] mr-[10px]"
+                  ></bk-svg>
+                  <div @click="toRoute('/Moments')" class="flex-1 text-center text-nowrap overflow-hidden h-[30px] hover:text-[#425aef]" v-html="item.content"></div>
+                  <bk-svg
+                    iconName="icon-tiaozhuan"
+                    className="w-[20px] h-[20px] rotate-x-180 mr-[10px]"
+                    color="#333"
+                    @click="toRoute('/Moments')"
+                  ></bk-svg>
+                </div>
+            </template>
+          </LoopScroll>
         </div>
         <!-- 关于我 -->
          <div class="mt-[30px] w-full lg:flex hidden sm:block">
@@ -120,14 +97,11 @@
 import AboutView from './components/about.vue'
 import ArticleView from './components/article.vue';
 import LinkView from './components/links.vue';
+import { LoopScroll } from "@joyday/vue-loop-scroll";
 // import BkSky from './BkSky.vue'
 import BkXk from './BKXk.vue'
 const isMove = ref(false);
-// const homeRef = ref(null);
-// import { vanta } from "@/utils/vanta";
-// const vantaEffect = ref(null as any);
-import {momentsList, MomentsRef, queryMoments, isNeedTran, isMoveIng, createMomentsInterval} from './config/moment'
-const isMoveTz = ref(false);
+import {momentsList, queryMoments} from './config/moment'
 const router = useRouter();
 
 

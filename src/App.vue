@@ -42,14 +42,14 @@ onMounted(() => {
   initTx();
   initUserInfo();
   //首次进入欢迎弹窗
-  if (!localStorage.getItem("adublogHY")) {
     axios
       .get("https://api.vvhan.com/api/visitor.info")
 
       .then((response) => {
         const data = response.data;
-        saveVisitInfo(data);
         if (data.success) {
+          saveVisitInfo(data);
+          if (!localStorage.getItem("adublogHY")) {
           ElNotification({
             icon: WelcomeLog,
             title: "你好",
@@ -68,12 +68,12 @@ onMounted(() => {
           });
           localStorage.setItem("adublogHY", true);
         }
-      })
-      .catch();
-  }
+      }
+    })
+    .catch();
 
   //粒子
-  async (engine) => {
+  async (engine: any) => {
     await loadSlim(engine);
   };
 

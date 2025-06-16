@@ -14,6 +14,9 @@ importers:
       '@highlightjs/vue-plugin':
         specifier: ^2.1.0
         version: 2.1.0(highlight.js@11.11.1)(vue@3.5.13(typescript@5.7.3))
+      '@joyday/vue-loop-scroll':
+        specifier: ^1.1.4
+        version: 1.1.4(vue@3.5.13(typescript@5.7.3))
       '@tailwindcss/vite':
         specifier: ^4.1.3
         version: 4.1.3(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.3)(terser@5.39.0))
@@ -435,6 +438,11 @@ packages:
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
     engines: {node: '>=12'}
+
+  '@joyday/vue-loop-scroll@1.1.4':
+    resolution: {integrity: sha512-BrWw9Gii6dJiVZAyq0vYvgA/tTj3tdYY9LnP+kOqrbAfi8TVoF6fBx4HK/jcUpMsAobL9Z7lolWYEHAkiSD/Pg==}
+    peerDependencies:
+      vue: '>=3.0.0'
 
   '@jridgewell/gen-mapping@0.3.8':
     resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
@@ -4345,6 +4353,10 @@ snapshots:
       strip-ansi-cjs: strip-ansi@6.0.1
       wrap-ansi: 8.1.0
       wrap-ansi-cjs: wrap-ansi@7.0.0
+
+  '@joyday/vue-loop-scroll@1.1.4(vue@3.5.13(typescript@5.7.3))':
+    dependencies:
+      vue: 3.5.13(typescript@5.7.3)
 
   '@jridgewell/gen-mapping@0.3.8':
     dependencies:
